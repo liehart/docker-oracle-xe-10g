@@ -1,6 +1,4 @@
-FROM i386/debian:7.11
-
-MAINTAINER Kristian Du <kristian.du@gmail.com>
+FROM i386/debian:11
 
 ENV ORACLE_HOME=/usr/lib/oracle/xe/app/oracle/product/10.2.0/server
 ENV LD_LIBRARY_PATH=$ORACLE_HOME/lib
@@ -11,20 +9,22 @@ ADD oracle-xe_10.2.0.1-1.1_i386.debaa /
 ADD oracle-xe_10.2.0.1-1.1_i386.debab /
 ADD oracle-xe_10.2.0.1-1.1_i386.debac /
 
-RUN echo "deb http://archive.debian.org/debian/ wheezy main contrib non-free" > /etc/apt/sources.list;cat /etc/apt/sources.list && \
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN echo "deb http://deb.debian.org/debian/ bullseye main contrib non-free" > /etc/apt/sources.list;cat /etc/apt/sources.list && \
     dpkg --add-architecture i386 && \
     apt-get update && apt-get install -y \
-       bc:i386 \
-       libaio1:i386 \
-       libc6:i386 \
-       net-tools \
-       openssh-server && \
+        bc:i386 \
+        libaio1:i386 \
+        libc6:i386 \
+        net-tools \
+        openssh-server && \
     apt-get clean
 
 
 RUN mkdir /var/run/sshd && \
     echo 'root:admin' | chpasswd && \
-    sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
     echo "export VISIBLE=now" >> /etc/profile && \
     cat /oracle-xe_10.2.0.1-1.1_i386.deba* > /oracle-xe_10.2.0.1-1.1_i386.deb && \
