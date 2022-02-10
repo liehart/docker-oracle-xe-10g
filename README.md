@@ -46,3 +46,16 @@ Login to web administrator on a browser:
 ```
 http://localhost:49162/apex
 ```
+
+
+## Additional Information For Running on MacOs
+
+Make sure docker is installed first, to install docker please head to [https://docs.docker.com/desktop/mac/install/](https://docs.docker.com/desktop/mac/install/)
+
+1. Clone this repo `git clone https://github.com/liehart/docker-oracle-xe-10g.git`
+2. Change dir to cloned repo `cd docker-oracle-xe-10g`
+3. Build image `docker build -t oracle-docker .`
+4. Run container `docker run -d -p 49160:22 -p 49161:1521 -p 49162:8080 oracle-docker`
+5. SSH to Container `ssh root@localhost -p 49160` Use password `admin` if asked
+6. After successfully connected, login to `sqlplus` with `sqlplus system/oracle`
+
