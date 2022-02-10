@@ -48,9 +48,9 @@ http://localhost:49162/apex
 ```
 
 
-## Additional Information For Running on MacOs
+## Additional Information For Running on Linux or macOs
 
-Make sure docker is installed first, to install docker please head to [https://docs.docker.com/desktop/mac/install/](https://docs.docker.com/desktop/mac/install/)
+Make sure docker is installed first, to install docker please head to [Docker macOs Install](https://docs.docker.com/desktop/mac/install/) or [Docker Linux Install](https://docs.docker.com/engine/install/)
 
 1. Clone this repo `git clone https://github.com/liehart/docker-oracle-xe-10g.git`
 2. Change dir to cloned repo `cd docker-oracle-xe-10g`
@@ -59,3 +59,6 @@ Make sure docker is installed first, to install docker please head to [https://d
 5. SSH to Container `ssh root@localhost -p 49160` Use password `admin` if asked
 6. After successfully connected, login to `sqlplus` with `sqlplus system/oracle`
 
+Additional command:
+1. To stop container `docker stop oracle-docker`
+2. To run container again `docker start oracle-docker`
